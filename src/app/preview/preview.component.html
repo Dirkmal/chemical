@@ -1,0 +1,130 @@
+<div *ngIf="report">
+  <h4 class="heading">
+    <img class="pull-right" src="assets/logo.png" width="100" height="100">
+    ABUTH, SHIKA - ZARIA<br>
+    Chemical Pathology Laboratory Results
+  </h4>
+
+  <div class="row">
+    <div class="padded col-lg-12 col-md-12">
+      <b>Lab number:</b> {{report?.lab_num}}
+    </div>
+
+    <div class="padded col-lg-12 col-md-12">
+      <b>Patient name:</b> {{patient?.f_name | titlecase}} {{patient?.m_name | titlecase}} {{patient?.l_name | titlecase}}
+    </div>
+
+    <div class="padded col-lg-12 col-md-12">
+      <b>Hospital number:</b> {{patient?.hospital_num}}
+    </div>
+
+    <div class="padded col-lg-12 col-md-12" *ngIf="patient?.tribe">
+      <b>Tribe:</b> {{patient?.tribe}}
+    </div>
+
+    <div class="padded col-lg-12 col-md-12">
+      <b>Gender:</b> {{patient?.gender}}
+    </div>
+
+    <div class="padded col-lg-6 col-md-6" *ngIf="patient?.dob != '0000-00-00'">
+      <b>Birth date:</b> {{patient?.dob}}
+    </div>
+
+    <div class="padded col-lg-6 col-md-6">
+      <b>Age:</b> {{patient?.age}}
+    </div>
+
+    <div class="padded col-lg-6 col-md-6">
+      <b>Sample type:</b> {{report?.sample_type}}
+    </div>
+
+    <div class="padded col-lg-6 col-md-6">
+      <b>Ward/Clinic:</b> {{report?.ward | uppercase}}
+    </div>
+
+    <table class="table">
+      <th>#</th>
+      <th>Test name</th>
+      <th>Result</th>
+      <th>Reference ranges</th>
+      <th>Unit</th>
+      <th>Conversion factor</th>
+      <th>CF Unit</th>
+
+      <tbody>
+        <tr *ngFor="let test of report.tests; let i = index">
+          <td>
+            {{ i + 1 }}
+          </td>
+          <td>
+            {{ test.test_name }}
+          </td>
+          <td>
+            {{ test.value }}
+          </td>
+          <td>
+            {{ test.min_range }} - {{ test.max_range }}
+          </td>
+          <td>
+            {{ test.unit }}
+          </td>
+          <td>
+            {{ test.cf_value || '' }}
+          </td>
+
+          <td>
+            {{ test.cf_unit || '' }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="padded col-lg-6 col-md-6">
+      <b>Nature of Specimen:</b> {{ report?.specimen }}
+    </div>
+
+    <div class="padded col-lg-6 col-md-6">
+      <b>Date Collected:</b> {{ report?.date_collected }}
+    </div>
+
+    <div class="padded col-lg-6 col-md-6">
+      <b>Date Reported:</b> {{ report?.date_reported }}
+    </div>
+
+    <div class="padded col-lg-6 col-md-6">
+      <b>Date Measured:</b> {{ report?.date_measured }}
+    </div>
+
+    <div class="padded col-lg-6 col-md-6">
+      <b>Approved by:</b> {{ report?.approved }}
+    </div>
+
+    <div class="padded col-lg-6 col-md-6">
+      <b>Signature:</b>____________________________
+    </div>
+
+    <br>
+
+    <div class="padded col-lg-12 col-md-12">
+      <b>Comment:</b> {{ report?.comment }}
+    </div>
+
+    <div class="padded col-lg-4 col-md-4">
+      <b>Consultant:</b> {{ report?.consultant }}
+    </div>
+
+    <div class="padded col-lg-4 col-md-4">
+      <b>Signature:</b>____________________________
+    </div>
+
+    <div class="padded col-lg-4 col-md-4">
+      <b>Date:</b> {{ curr_date }}
+    </div>
+
+    <br><br>
+  </div>
+
+  <button class="btn btn-info" (click)="print()"  id="print_btn">
+    PRINT
+  </button>
+</div>

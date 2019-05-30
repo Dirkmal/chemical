@@ -1,0 +1,27 @@
+<div *ngIf="reports?.length > 0">
+  <h4 class="heading">
+    All Reports
+  </h4>
+
+  <app-reports [reports]="reports" (pageToLoad)="getReports($event)" [count]="num_of_reports"></app-reports>
+
+  <div class="row">
+    <div class="col-lg-8 d-flex justify-content-center">
+      <div class="input-field">
+        <i class="fa fa-search prefix" (click)="search(true)"></i>
+
+        <input type="text" class="form-control"
+        placeholder="Search for a report, using lab number, hospital number or consultant's name"
+        [formControl]="queryReportField">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="found_reports?.length > 0">
+  <h4 class="heading">
+    Found results
+  </h4>
+  <app-reports [reports]="found_reports" (pageToLoad)="searchReports($event)" [count]="num_of_search_reports"></app-reports>
+</div>
+

@@ -1,0 +1,143 @@
+<div *ngIf="patient">
+  <h2 class="heading">
+    Type Report
+  </h2>
+
+  <div class="row">
+    <form #f="ngForm" name="theForm" class="form" (ngSubmit)="addReport(f)">
+      <div class="row">
+        <label class="col-lg-3">Hospital number
+          <i class="fa fa-h-square"></i>
+          <input type="text" class="form-control" name="h_num" [ngModel]="patient.hospital_num" readonly>
+        </label>
+
+        <label class="col-lg-3">First name
+          <i class="fa fa-user-circle"></i>
+          <input type="text" class="form-control" name="f_name" [ngModel]="patient.first_name" readonly>
+        </label>
+
+        <label class="col-lg-3">Middle name
+          <i class="fa fa-user-circle"></i>
+          <input type="text" class="form-control" name="m_name" [ngModel]="patient.middle_name" readonly>
+        </label>
+
+        <label class="col-lg-3">Last name
+          <i class="fa fa-user-circle"></i>
+          <input type="text" class="form-control" name="l_name" [ngModel]="patient.last_name" readonly>
+        </label>
+
+        <label class="col-lg-3">Tribe
+          <input type="text" class="form-control" name="tribe" [ngModel]="patient.tribe" readonly>
+        </label>
+
+        <div class="input-field col-lg-3">
+          <input id="ward" type="text" class="form-control" name="ward" [(ngModel)]="report.ward"
+           required autofocus list="ward_list">
+          <label for="ward">Ward/Clinic</label>
+          <datalist id="ward_list">
+            <option *ngFor="let ward of wards">{{ ward.name }}</option>
+          </datalist>
+        </div>
+
+        <div class="input-field col-lg-3">
+          <input id="specimen" type="text" class="form-control" name="specimen" [(ngModel)]="report.specimen" required>
+          <label for="specimen">Nature of Specimen</label>
+        </div>
+
+        <div class="input-field col-lg-3">
+          <input id="sample_type" type="text" class="form-control" name="sample_type" [(ngModel)]="report.sample_type" required>
+          <label for="sample_type">Sample Type</label>
+        </div>
+
+        <div class="input-field col-lg-3">
+          <input id="date_c" type="date" class="form-control" name="date_c" [(ngModel)]="report.date_collected" required>
+          <label for="date_c">Date Collected
+            <i class="fa fa-calendar"></i>
+          </label>
+        </div>
+
+        <div class="input-field col-lg-3">
+          <input id="date_m" type="date" class="form-control" name="date_m" [(ngModel)]="report.date_measured" required>
+          <label for="date_m">Date Measured
+            <i class="fa fa-calendar"></i>
+          </label>
+        </div>
+
+        <div class="input-field col-lg-3">
+          <input id="date_r" type="date" class="form-control" name="date_r" [(ngModel)]="report.date_reported" required>
+          <label for="date_r">Date Reported
+            <i class="fa fa-calendar"></i>
+          </label>
+        </div>
+
+        <div class="input-field col-lg-3">
+          <input id="consultant" type="text" class="form-control" name="consultant" [(ngModel)]="report.consultant" required>
+          <label for="consultant">Consultant
+            <i class="fa fa-user-circle"></i>
+          </label>
+        </div>
+
+        <div class="input-field col-lg-3">
+          <input id="approved_by" type="text" class="form-control" name="approved_by" [(ngModel)]="report.approved" required>
+          <label for="approved_by">Approved by
+            <i class="fa fa-user-circle"></i>
+          </label>
+        </div>
+
+        <div class="input-field col-lg-12">
+          <textarea id="comment" class="form-control materialize-textarea" name="comment" [(ngModel)]="report.comment" required></textarea>
+          <label for="comment">Comment(s)
+            <i class="fa fa-edit"></i>
+          </label>
+        </div>
+      </div>
+
+      <div class="card col-lg-12">
+        <h5 class="heading">
+          Tests
+          <button class="btn btn-success btn-sm" type="button" (click)="openTestModal()">
+            Add Tests
+          </button>
+        </h5>
+
+        <table class="table">
+          <tbody>
+            <tr *ngFor="let added_test of report.tests; let i = index">
+              <td>
+                {{ added_test.name }}
+              </td>
+
+              <td>
+                {{ added_test.value }}
+              </td>
+
+              <td>
+                {{ added_test.unit }}
+              </td>
+
+              <td>
+                <button class="btn btn-danger" (click)="removeTest(i)">
+                Remove
+              </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <button class="btn btn-success btn-sm col-lg-12" [disabled]="f.invalid" type="submit">
+        Save Report
+      </button>
+    </form>
+  </div>
+</div>
+
+<div *ngIf="!patient">
+  <h4 class="heading">
+    You must select a patient to type a report for... <a routerLink="/allp">View here</a>
+  </h4>
+</div>
+
+<app-modal #tests_modal [modal_size]="tests_modal.medium">
+  <app-add-test (testAdded)="addTest($event)"></app-add-test>
+</app-modal>

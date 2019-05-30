@@ -1,0 +1,66 @@
+<div class="card">
+    <h4 class="heading">
+        Register a new Patient
+    </h4>
+    <form #f="ngForm" name="theForm" class="form" method="post">
+        <label class="control-label col-lg-6 required">Hospital number
+            <input type="text" class="form-control" list="hospital_num" name="h_num"
+             [(ngModel)]="patient.hospital_num" required
+             (keyup)="checkHospitalNum()" autofocus>
+
+            <datalist id="hospital_num">
+                <option value="NYR">Not Yet Registered</option>
+            </datalist>
+            <span *ngIf="confirm_patient">
+                Registered to:
+                {{confirm_patient.f_name | titlecase}}
+                {{confirm_patient.m_name | titlecase}}
+                {{confirm_patient.l_name | titlecase}}
+            </span>
+        </label>
+
+        <label class="control-label col-lg-6 required">First name
+            <input type="text" class="form-control" name="f_name" [(ngModel)]="patient.f_name" required>
+        </label>
+
+        <label class="control-label col-lg-6">Middle name
+            <input type="text" class="form-control" name="m_name" [(ngModel)]="patient.m_name">
+        </label>
+
+        <label class="control-label col-lg-6 required">Last name
+            <input type="text" class="form-control" name="l_name" [(ngModel)]="patient.l_name" required>
+        </label>
+
+        <label class="control-label col-lg-6">Tribe
+            <input type="text" class="form-control" name="tribe" [(ngModel)]="patient.tribe">
+        </label>
+
+        <label class="control-label col-lg-6">Date of Birth
+            <input type="date" class="form-control" name="dob" [(ngModel)]="patient.dob" (change)="calculateAge()">
+        </label>
+
+        <label class="control-label col-lg-6 required">Age
+            <input type="number" class="form-control" name="age" min="1" [(ngModel)]="patient.age" required list="age_list">
+            <!-- <datalist id="age_list">
+                <option>Unknown age</option>
+                <option>Child</option>
+            </datalist> -->
+        </label>
+
+        <label class="control-label col-lg-6 required">Gender
+            <select class="form-control" type="text" name="gender" [(ngModel)]="patient.gender" required>
+                <option></option>
+                <option>Male</option>
+                <option>Female</option>
+            </select>
+        </label>
+
+        <button class="btn btn-sm" [disabled]="f.invalid" (click)="newPatient(f)">
+            Register
+        </button>
+
+        <button class="btn btn-sm pull-right" [disabled]="f.invalid" (click)="newPatient(f, true);">
+            Register &amp; Create Report
+        </button>
+    </form>
+</div>

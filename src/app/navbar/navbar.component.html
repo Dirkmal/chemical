@@ -1,0 +1,41 @@
+<header>  
+  <div class="navbar mx-auto">
+    <div class="trigger_nav" (click)="toggleNav()">
+      <i class="fa fa-bars"></i>
+      <a class="trigger_link">Navigate</a>
+    </div>
+
+    <ul [class.hide]="hide">
+      <li>
+        <a routerLink="/home" (click)="toggleNav()">
+          Home
+        </a>
+      </li>
+      
+      <li>
+        <a routerLink="/newp" (click)="toggleNav()">
+          Add New Patient
+        </a>
+      </li> 
+      
+      <li>
+        <a routerLink="/allp" (click)="toggleNav()">
+          View All Patients
+        </a>
+      </li>
+
+      <li>
+        <a routerLink="/tests" (click)="toggleNav()">
+          Tests
+        </a>
+      </li>
+      
+      <li>
+        <a routerLink="/allr" (click)="toggleNav()">
+          View All Reports
+        </a>
+      </li>
+    </ul>
+  </div>  
+</header>
+  

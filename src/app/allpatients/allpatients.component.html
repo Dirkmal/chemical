@@ -1,0 +1,166 @@
+<div *ngIf="patients.length > 0">
+  <h4 class="heading">
+    All Patients
+  </h4>
+
+  <table class="table">
+    <thead>
+      <th>#</th>
+      <th>Hospital number</th>
+      <th>Patient's Name</th>
+      <th>Tribe</th>
+      <th>Age</th>
+      <th>Gender</th>
+      <th>Date of Birth</th>
+      <th>Patient's reports</th>
+      <th>Edit Patient Info</th>
+      <th>New Report</th>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let patient of patients; let i = index">
+        <td>{{i + 1}}</td>
+        <td>
+          {{ patient.hospital_num }}
+        </td>
+        <td>
+          {{ patient.first_name | titlecase }} {{ patient.middle_name | titlecase }} {{ patient.last_name | titlecase }}
+        </td>
+        <td>
+          {{ patient.tribe || "not specified" }}
+        </td>
+        <td>
+          {{ patient.age }}
+        </td>
+        <td>
+          {{ patient.gender }}
+        </td>
+        <td>
+          {{ patient.dob || "not specified" }}
+        </td>
+        <td>
+          <button class="btn" (click)="viewReports(patient)">
+            View
+          </button>
+        </td>
+        <td>
+          <button class="btn" (click)="editPatient(patient)"
+          data-toggle="modal" data-target="#patientModal">
+            Edit
+          </button>
+        </td>
+        <td>
+          <button class="btn" (click)="addReportFor(patient.id)">
+            New
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="row">
+    <div class="col-lg-4">
+      <button class="btn btn-info" (click)="loadMore()">
+        Load More
+      </button>
+    </div>
+
+    <div class="col-lg-4">
+      <input class="form-control" type="number" min="0"
+      placeholder="enter a page number to go to" name="gtp"
+      [(ngModel)]="page_number" (keyup.enter)="gotoPage()">
+
+      <span class="pull-left">Number of patients: {{num_recs}}</span>
+      <span class="pull-right">Number of pages: {{pages}}</span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="search_bar col-lg-8">
+      <div class="input-field">
+        <i class="fa fa-search prefix" (click)="search(true)"></i>
+
+        <input type="text" class="form-control"
+        placeholder="Search for a patient, use name, age or hospital number"
+        [(ngModel)]="search_param"
+        (keyup.enter)="search(true)">
+      </div>
+    </div>
+  </div>
+
+  <!-- <div *ngIf="searched">
+    <h3 class="heading">
+      Search results
+    </h3>
+
+    <table class="table table-striped">
+      <thead>
+        <th>#</th>
+        <th>Hospital number</th>
+        <th>Patient's Name</th>
+        <th>Tribe</th>
+        <th>Age</th>
+        <th>Gender</th>
+        <th>Date of Birth</th>
+        <th>Patient's reports</th>
+        <th>Edit Patient Info</th>
+        <th>New Report</th>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let r_patient of retrieved_patients; let i = index">
+          <td>{{i + 1}}</td>
+          <td>
+            {{r_patient.hospital_num}}
+          </td>
+          <td>
+            {{r_patient.f_name | titlecase}} {{r_patient.m_name | titlecase}} {{r_patient.l_name | titlecase}}
+          </td>
+          <td>
+            {{r_patient.tribe || none}}
+          </td>
+          <td>
+            {{r_patient.age}}
+          </td>
+          <td>
+            {{r_patient.gender}}
+          </td>
+          <td>
+            {{r_patient.dob}}
+          </td>
+          <td>
+            <button class="btn" (click)="viewReports(r_patient)">
+              View
+            </button>
+          </td>
+          <td>
+            <button class="btn" (click)="editPatient(r_patient)">
+              Edit
+            </button>
+          </td>
+          <td>
+            <button class="btn" (click)="createReport(r_patient)">
+              New
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <button class="btn btn-info" (click)="search()">
+      Load More
+    </button>
+  </div> -->
+</div>
+
+<div *ngIf="patients.length < 1">
+  <h4 class="heading">
+    No patients have been registered!
+  </h4>
+</div>
+
+<app-modal #edit_patient_modal [modal_size]="edit_patient_modal.sizes.medium">
+  <app-editpatient [patient]="edit_patient"></app-editpatient>
+</app-modal>
+
+<app-patients-reports #viewR [patient]="view_reports" id="p_reports"></app-patients-reports>

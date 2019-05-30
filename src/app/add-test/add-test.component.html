@@ -1,0 +1,68 @@
+<div class="row">
+  <div class="col-lg-12 col-md-12">
+    <h4 class="heading">Add Tests</h4>
+
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="input-field">
+            <i class="fa fa-search prefix right" (click)="findTest()"></i>
+
+            <div class="input-field col-lg-12">
+              <input id="ttf" type="text" class="form-control" name="ttf"
+              [formControl]="queryTestField">
+              <label for="ttf">Find a test quickly</label>
+            </div>
+          </div>
+
+          <div *ngIf="found_test">
+            <div class="col-lg-12">
+              {{ found_test.name | titlecase }}
+
+              <div class="input-field inline">
+                <input type="number" class="form-control validate" min="0" name="test_value"
+                [(ngModel)]="found_test.value" id="tst" (keyup.enter)="addTest(found_test)">
+                <label for="tst">Enter Test Value</label>
+
+                <i class="fa fa-plus-circle prefix right" (click)="addTest(found_test)"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngFor="let p of all_panels; let i = index">
+      <div class="card col-lg-12">
+        <div class="">
+          {{ p.title | uppercase }}
+          <button class="btn pull-right" (click)="p.collapsed = !p.collapsed">
+            See Tests in this Panel
+            <span class="fa fa-caret-down"></span>
+          </button>
+        </div>
+
+        <table class="collapse table col-lg-12 card" [ngbCollapse]="!p.collapsed">
+          <tbody>
+            <tr *ngFor="let test of getPanelTests(p.id)" class="col-lg-12 col-md-12">
+              <td>
+                {{ test.name | uppercase }}
+              </td>
+
+              <td>
+                <input type="number" class="form-control" min="0" name="test_value"
+                [(ngModel)]="test.value" placeholder="value ({{test.unit}})" (keyup.enter)="addTest(test)">
+              </td>
+
+              <td>
+                <button class="btn btn-info" (click)="addTest(test)">
+                  Add Test
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

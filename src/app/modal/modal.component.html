@@ -1,0 +1,8 @@
+<ng-template #content let-modal>
+  <div class="modal-body">
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss(); closeInfo()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <ng-content></ng-content>
+  </div>
+</ng-template>

@@ -1,0 +1,120 @@
+<div class="row">
+  <div class="col-lg-4 col-md-4">
+    <div class="card">
+      <h4 class="heading">
+        Create New Panel
+      </h4>
+
+      <form #newPanelF="ngForm" name="s" class="form" (ngSubmit)="newPanel(c)">
+        <label class="control-label col-lg-8 required">Panel Title
+          <input type="text" class="form-control" name="title" autofocus
+          [(ngModel)]="new_panel.title" required>
+        </label>
+
+        <button class="btn btn-success btn-sm" [disabled]="newPanelF.invalid" type="submit">
+          Create
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <div class="col-lg-8 col-md-8">
+    <div class="card">
+      <h4 class="heading">
+        All Panels
+      </h4>
+
+      <div class="collapsible" id="panelGroup ">
+        <div *ngFor="let panel of panels; let i = index">
+          <table class="table table-condensed">
+            <thead>
+              <th>
+                {{ panel.title | uppercase }}
+              </th>
+
+              <th>
+                <button class="btn btn-sm">
+                  Add New Test
+                </button>
+              </th>
+
+              <th>
+                <button class="btn btn-danger" (click)="deletePanel(panel.id)">
+                  Delete Panel
+                </button>
+              </th>
+
+              <th>
+                <button class="btn">
+                  <span class="fa fa-caret-down"></span>
+                </button>
+              </th>
+            </thead>
+          </table>
+
+          <table class="table table-condensed collapse" [ngbCollapse]="panel.collapsed">
+            <thead>
+              <th>
+                Test name
+              </th>
+              <th>
+                Min Range
+              </th>
+              <th>
+                Max Range
+              </th>
+              <th>
+                Unit
+              </th>
+              <th>
+                C Factor
+              </th>
+              <th>
+                C Factor Unit
+              </th>
+              <th>
+                Edit
+              </th>
+              <th>
+                Delete
+              </th>
+            </thead>
+
+            <tbody>
+              <tr *ngFor="let test of getTestsInPanel(panel.id)" class="col-sm-12">
+                <td>
+                  {{ test.test_name }}
+                </td>
+                <td>
+                  {{ test.min_range }}
+                </td>
+                <td>
+                  {{ test.max_range }}
+                </td>
+                <td>
+                  {{ test.unit }}
+                </td>
+                <td>
+                  {{ test.cf_value || '' }}
+                </td>
+                <td>
+                  {{ test.cf_unit || '' }}
+                </td>
+                <td>
+                  <button class="btn" (click)="editTest(test)">
+                    Edit
+                  </button>
+                </td>
+                <td>
+                  <button class="btn btn-danger" (click)="deleteTest(test.id)">
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+{
+  "url": "http://localhost",
+  "api": "/chemapi",
+  "patient": "/patient",
+  "report": "/report",
+  "panel": "/panel",
+  "test": "/test",
+  "ward": "/ward",
+  "create": "/create",
+  "get": "/fetch",
+  "get_all": "/fetch_all",
+  "update": "/update",
+  "delete": "/delete",
+  "search": "/search",
+  "num_recs": "/get_num_recs",
+  "recs_per_page": "10"
+}

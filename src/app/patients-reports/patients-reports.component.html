@@ -1,0 +1,72 @@
+<div *ngIf="patient">
+  <div class="row" *ngIf="reports.length > 0">
+    <h4 class="heading">
+      Reports for {{ patient?.first_name | titlecase }} {{ patient?.middle_name | titlecase }} {{ patient?.last_name | titlecase }}
+    </h4>
+
+    <table class="table">
+      <thead>
+        <th>#</th>
+        <th>Lab number</th>
+        <th>Hospital number</th>
+        <th>Patient's Name</th>
+        <th>Ward</th>
+        <th>Specimen</th>
+        <th>Consultant</th>
+        <th>Comment</th>
+        <th>Edit</th>
+        <th>Print</th>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let report of reports; let i = index">
+          <td>
+            {{ i + 1 }}
+          </td>
+          <td>
+            {{ report.lab_num }}
+          </td>
+          <td>
+              {{ patient.hospital_num }}
+          </td>
+          <td>
+              {{ patient.first_name | titlecase }} {{ patient.middle_name | titlecase }} {{ patient.last_name | titlecase }}
+          </td>
+          <td>
+              {{ report.ward }}
+          </td>
+          <td>
+              {{ report.specimen }}
+          </td>
+          <td>
+              {{ report.consultant }}
+          </td>
+          <td>
+              {{ report.comment }}
+          </td>
+          <td>
+            <button class="btn btn-info" (click)="editReport(report)">
+              Edit
+            </button>
+          </td>
+          <td>
+            <button class="btn btn-info" (click)="printReport(report)">
+              Print
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="reports.length < 1">
+    <h4 class="heading">
+      No reports registered for {{ patient?.first_name | titlecase }} {{ patient?.middle_name | titlecase }} {{ patient?.last_name | titlecase }}
+      <!-- No reports found for {{ patient.fullname }} -->
+    </h4>
+  </div>
+</div>
+
+<app-modal #edit_report_modal [modal_size]="edit_report_modal.sizes.medium">
+  <app-edit-report [report]="selected_report"></app-edit-report>
+</app-modal>

@@ -1,0 +1,62 @@
+<div class="row" *ngIf="patient">
+  <h4 class="heading">
+    Edit patient's bio data
+  </h4>
+
+  <form #f="ngForm" name="editPatientForm" class="form" method="post">
+    <label class="control-label col-lg-3">Hospital number
+      <input type="text" class="form-control" list="hospital_num" name="h_num"
+        [(ngModel)]="patient.hospital_num" required (keyup)="checkHospitalNum()" autofocus>
+
+        <datalist id="hospital_num">
+            <option value="NYR">Not Yet Registered</option>
+        </datalist>
+        <span *ngIf="confirm_patient">
+          Registered to:
+          {{confirm_patient.first_name | titlecase}}
+          {{confirm_patient.middle_name | titlecase}}
+          {{confirm_patient.last_name | titlecase}}
+        </span>
+      <!-- onchange check if hospital num exists and display link to create new report for patient -->
+      <datalist id="hospital_num">
+        <option value="NYR">Not Yet Registered</option>
+      </datalist>
+    </label>
+
+    <label class="control-label col-lg-3">First name
+      <input type="text" class="form-control" name="f_name" [(ngModel)]="patient.first_name" required>
+    </label>
+
+    <label class="control-label col-lg-3">Middle name
+      <input type="text" class="form-control" name="m_name" [(ngModel)]="patient.middle_name">
+    </label>
+
+    <label class="control-label col-lg-3">Last name
+      <input type="text" class="form-control" name="l_name" [(ngModel)]="patient.last_name" required>
+    </label>
+
+    <label class="control-label col-lg-3">Tribe
+      <input type="text" class="form-control" name="tribe" [(ngModel)]="patient.tribe">
+    </label>
+
+    <label class="control-label col-lg-3">Date of Birth
+      <input type="date" class="form-control" name="dob" [(ngModel)]="patient.dob" (change)="getAgeDOB()">
+    </label>
+
+    <label class="control-label col-lg-3">Age
+      <input type="number" class="form-control" name="age" min="1" [(ngModel)]="patient.age" required>
+    </label>
+
+    <label class="control-label col-lg-3">Gender
+      <select class="form-control" type="text" name="gender" [(ngModel)]="patient.gender" required>
+        <option></option>
+        <option>Male</option>
+        <option>Female</option>
+      </select>
+    </label>
+
+    <button class="btn btn-success btn-sm pull-right" [disabled]="f.invalid" (click)="updatePatient(f)">
+      Update
+    </button>
+  </form>
+</div>

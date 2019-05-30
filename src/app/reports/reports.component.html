@@ -1,0 +1,70 @@
+<div *ngIf="reports?.length > 0">
+  <table class="table">
+    <thead>
+      <th>#</th>
+      <th>Lab number</th>
+      <th>Hospital number</th>
+      <th>Ward</th>
+      <th>Specimen</th>
+      <th>Consultant</th>
+      <th>Comment</th>
+      <th>Edit</th>
+      <th>Print</th>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let report of reports[page-1]; let i = index;">
+        <td>
+          {{ i + 1 + ((page - 1) * 10) }}
+        </td>
+        <td>
+          {{ report.lab_num }} / {{ report.created_on | date : 'yy' }}
+        </td>
+        <td>
+          {{ report.hospital_num }}
+        </td>
+        <td>
+          {{ report.ward | truncate }}
+        </td>
+        <td>
+          {{ report.specimen | truncate }}
+        </td>
+        <td>
+          {{ report.consultant | truncate }}
+        </td>
+        <td>
+          {{ report.comment | truncate }}
+        </td>
+        <td>
+          <button class="btn" (click)="selectReport(report)">
+            Edit
+          </button>
+        </td>
+        <td>
+          <button class="btn" (click)="printReport(report)">
+            Print
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="row">
+    Showing {{ 1 + (page - 1) * 10 }} to {{ ((page - 1) * 10) + 10 }} of {{ count }}
+  </div>
+
+  <ngb-pagination
+  [(page)]="page"
+  (pageChange)="loadPage($event)"
+  [maxSize]="3"
+  [rotate]="true"
+  [collectionSize]="count"
+  class="d-flex justify-content-center"
+  size="lg"></ngb-pagination>
+
+</div>
+
+
+<app-modal #edit_report [modal_size]="edit_report.sizes.medium">
+  <app-edit-report [report]="selected_report"></app-edit-report>
+</app-modal>

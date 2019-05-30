@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+  <head>
+    <!-- <style type="css" href="../styles.css" -->
+    <title>
+      Server Settings
+    </title>
+  </head>
+
+  <body onload="getCurrentAddress()">
+    <h4>
+      Current Address: <span id="curr_addr"></span>
+    </h4>
+    <form>
+      <input class="form-control" id="url" name="url" type="text" placeholder="e.g: 127.0.0.1" required>
+
+      <button class="btn btn-info" type="submit">
+        Change
+      </button>
+    </form>
+
+    <script>
+      const electron = require('electron');
+      const { ipcRenderer } = electron;
+
+      const form = document.querySelector('form');
+      form.addEventListener('submit', submitForm);
+
+      function submitForm(e) {
+        e.preventDefault();
+        const address = document.querySelector('#url').value;
+        ipcRenderer.send('setApiUrl', address);
+        getCurrentAddress();
+        alert("Please restart the application for changes to be effected");
+      }
+
+      function getCurrentAddress() {
+        curr_addr = ipcRenderer.sendSync('getApiUrl');
+        ca_element = document.getElementById('curr_addr');
+        ca_element.innerHTML = curr_addr;
+      }
+
+      ipcRenderer.on('success', function(event, args) {
+        alert(args);
+      });
+    </script>
+  </body>
+</html>

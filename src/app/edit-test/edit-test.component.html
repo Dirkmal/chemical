@@ -1,0 +1,47 @@
+<div class="row" *ngIf="test">
+  <h4 class="heading">
+    Update Test
+  </h4>
+
+  <form #editTestForm="ngForm" (ngSubmit)="updateTest(f)" class="form">
+    <label class="control-label col-lg-3 required">Test Name
+      <input type="text" class="form-control" name="t_name" [(ngModel)]="test.name" required>
+    </label>
+
+    <label class="control-label col-lg-3 required">Minimum value of range
+      <input type="number" min="0" class="form-control" name="t_min" [(ngModel)]="test.min_range" required>
+    </label>
+
+    <label class="control-label col-lg-3 required">Maximum value of range
+      <input type="number" min="0" class="form-control" name="t_max" [(ngModel)]="test.max_range" required>
+    </label>
+
+    <label class="control-label col-lg-3 required">Unit
+      <input type="text" class="form-control" name="t_unit" [(ngModel)]="test.unit" required>
+    </label>
+
+    <label class="control-label col-lg-3">Conversion Factor Value
+      <input type="number" min="0" class="form-control" name="t_cf_value" [(ngModel)]="test.cf_value">
+    </label>
+
+    <label class="control-label col-lg-3">Conversion Factor Unit
+      <input type="text" class="form-control" name="t_cf_unit" [(ngModel)]="test.cf_unit">
+    </label>
+
+    <label class="control-label col-lg-3">Current Panel
+      <input type="text" class="form-control" name="c_panel" [(ngModel)]="current_panel.title" readonly>
+    </label>
+
+    <label class="control-label col-lg-3">Change Panel
+      <select class="form-control" type="text" name="panel" [(ngModel)]="test.panel_id">
+          <option *ngFor="let panel of all_panels; let i = index" value="{{ panel.id }}">
+            {{ panel.title }}
+          </option>
+      </select>
+    </label>
+
+    <button class="btn btn-success btn-sm" [disabled]="d.invalid">
+      Update
+    </button>
+  </form>
+</div>

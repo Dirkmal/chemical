@@ -1,0 +1,38 @@
+header{
+    position: fixed;
+    z-index: 900;
+    left: 0;
+    top: 0;
+    width: 100%;
+    background: teal;
+}
+
+.navbar ul{
+    width: 100%;
+    margin-bottom: 0!important;
+}
+
+ul li{
+    list-style: none;
+    padding: 10px;
+    font-size: 15px;
+}
+
+.navbar a{
+    color: #000;
+    padding: 10px;
+    line-height: 20px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+trigger_nav{
+    color: #000;
+    cursor: hand;
+    font-weight: 600;
+    font-size: 24px;
+}
+
+trigger_link{
+    margin-left: 20px;
+}

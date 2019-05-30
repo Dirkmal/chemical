@@ -1,0 +1,39 @@
+<div>
+  <h4 class="heading">
+    Create new test
+  </h4>
+
+  <form #newTForm="ngForm" class="form" (ngSubmit)="addTest(f)">
+    <label class="control-label col-lg-3 required">Test Name
+      <input type="text" class="form-control" name="t_name" [(ngModel)]="test.name" required>
+    </label>
+
+    <label class="control-label col-lg-3 required">Minimum value of range
+      <input type="number" min="0" class="form-control" name="t_min" [(ngModel)]="test.min_range" required>
+    </label>
+
+    <label class="control-label col-lg-3 required">Maximum value of range
+      <input type="number" min="0" class="form-control" name="t_max" [(ngModel)]="test.max_range" required>
+    </label>
+
+    <label class="control-label col-lg-3 required">Unit
+      <input type="text" class="form-control" name="t_unit" [(ngModel)]="test.unit" required>
+    </label>
+
+    <label class="control-label col-lg-3">Conversion Factor Value
+      <input type="number" min="0" class="form-control" name="t_cf_value" [(ngModel)]="test.cf_value">
+    </label>
+
+    <label class="control-label col-lg-3">Conversion Factor Unit
+      <input type="text" class="form-control" name="t_cf_unit" [(ngModel)]="test.cf_unit">
+    </label>
+
+    <label class="control-label col-lg-3">Panel
+      <input type="text" class="form-control" name="panel" [(ngModel)]="selected_panel.title" readonly>
+    </label>
+
+    <button class="btn btn-success btn-sm" [disabled]="f.invalid">
+      Add Test
+    </button>
+  </form>
+</div>
